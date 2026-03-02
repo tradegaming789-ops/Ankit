@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0a0a1a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>⌚ ROLEX MOD ULTRA V.52 HYBRID</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- PARTICLE BACKGROUND -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- SCAN LINE OVERLAY -->
+  <div class="scan-overlay"></div>
+
+  <!-- TOP HEADER -->
+  <header class="top-header" id="topHeader">
+    <button class="header-btn close-btn" id="closeBtn" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <div class="header-brand">
+      <div class="brand-logo">
+        <div class="logo-ring"></div>
+        <span class="logo-icon">⌚</span>
+      </div>
+      <div class="brand-text">
+        <span class="brand-rolex">ROLEX</span>
+        <span class="brand-mod">MOD</span>
+        <span class="brand-ultra">ULTRA</span>
+      </div>
+      <div class="version-badge">V.52</div>
+    </div>
+
+    <div class="header-actions">
+      <button class="header-btn" id="refreshBtn" aria-label="Refresh">
+        <i class="fas fa-rotate-right" id="refreshIcon"></i>
+      </button>
+      <button class="header-btn" id="menuBtn" aria-label="Menu">
+        <i class="fas fa-ellipsis-vertical"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- LIVE STATUS TICKER -->
+  <div class="status-ticker" id="statusTicker">
+    <div class="ticker-inner" id="tickerInner">
+      <span class="ticker-item"><i class="fas fa-circle-dot pulse-green"></i> LIVE PREDICTION ACTIVE</span>
+      <span class="ticker-sep">•</span>
+      <span class="ticker-item">⚡ NIRANJAN STABILITY ENGINE v3.0</span>
+      <span class="ticker-sep">•</span>
+      <span class="ticker-item">🚀 V.52 SENTINEL ACTIVE</span>
+      <span class="ticker-sep">•</span>
+      <span class="ticker-item">🧠 HYBRID AI: DUAL LOGIC FUSION</span>
+      <span class="ticker-sep">•</span>
+      <span class="ticker-item">📡 REAL-TIME DATA SYNC</span>
+      <span class="ticker-sep">•</span>
+      <span class="ticker-item"><i class="fas fa-circle-dot pulse-green"></i> LIVE PREDICTION ACTIVE</span>
+      <span class="ticker-sep">•</span>
+      <span class="ticker-item">⚡ NIRANJAN STABILITY ENGINE v3.0</span>
+      <span class="ticker-sep">•</span>
+      <span class="ticker-item">🚀 V.52 SENTINEL ACTIVE</span>
+      <span class="ticker-sep">•</span>
+      <span class="ticker-item">🧠 HYBRID AI: DUAL LOGIC FUSION</span>
+    </div>
+  </div>
+
+  <!-- ===== HOME TAB ===== -->
+  <div class="tab-page active" id="pageHome">
+    <div class="page-container">
+
+      <!-- Period & Timer Card -->
+      <div class="period-card glass-card animate-in">
+        <div class="period-left">
+          <div class="period-icon"><i class="fas fa-hashtag"></i></div>
+          <div class="period-info">
+            <div class="period-label">CURRENT PERIOD</div>
+            <div class="period-num" id="periodDisplay">----</div>
+          </div>
+        </div>
+        <div class="timer-section">
+          <div class="timer-ring-wrap">
+            <svg class="timer-ring-svg" viewBox="0 0 60 60">
+              <circle class="timer-ring-bg" cx="30" cy="30" r="26" />
+              <circle class="timer-ring-fg" id="timerRingFg" cx="30" cy="30" r="26" stroke-dasharray="163.36 163.36" />
+            </svg>
+            <div class="timer-number" id="timerBadge">--</div>
+          </div>
+          <div class="timer-label">SEC LEFT</div>
+        </div>
+      </div>
+
+      <!-- Server & Logic Badges -->
+      <div class="badge-row animate-in">
+        <div class="server-pill">
+          <i class="fas fa-server"></i>
+          <span>ROLEX MOD ULTRA HYBRID</span>
+        </div>
+      </div>
+      <div class="logic-badges animate-in">
+        <div class="logic-chip niranjan-chip">
+          <div class="chip-dot"></div>
+          <span>⚡ NIRANJAN STABILITY</span>
+        </div>
+        <div class="logic-chip v52-chip">
+          <div class="chip-dot"></div>
+          <span>🚀 V.52 SENTINEL</span>
+        </div>
+      </div>
+
+      <!-- Prediction Hero -->
+      <div class="prediction-hero glass-card animate-in" id="predHero">
+        <div class="pred-glow-ring" id="predGlowRing"></div>
+        <div class="pred-badge" id="predBadge">HYBRID AI</div>
+        <div class="pred-main-display">
+          <div class="pred-size-wrap">
+            <span class="pred-size" id="predSizeText">--</span>
+          </div>
+          <div class="pred-divider"></div>
+          <div class="pred-num-wrap">
+            <span class="pred-num-label">DIGIT</span>
+            <span class="pred-number" id="predNumText">-</span>
+          </div>
+        </div>
+        <div class="pred-confidence">
+          <div class="conf-bar-wrap">
+            <div class="conf-bar" id="confBar" style="width:0%"></div>
+          </div>
+          <div class="conf-text" id="confText">HYBRID CONFIDENCE: --%</div>
+        </div>
+        <div class="pred-logic-label" id="predLogicLabel">AWAITING DATA...</div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid animate-in">
+        <div class="stat-box wins-box">
+          <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+          <div class="stat-num" id="cardPass">0</div>
+          <div class="stat-name">PASS</div>
+          <div class="stat-ring-mini">
+            <svg viewBox="0 0 50 50">
+              <circle class="smr-bg" cx="25" cy="25" r="20" />
+              <circle class="smr-fg smr-green" id="donutPass" cx="25" cy="25" r="20" stroke-dasharray="0 125.66" />
+            </svg>
+          </div>
+        </div>
+        <div class="stat-box losses-box">
+          <div class="stat-icon"><i class="fas fa-xmark"></i></div>
+          <div class="stat-num" id="cardFail">0</div>
+          <div class="stat-name">FAIL</div>
+          <div class="stat-ring-mini">
+            <svg viewBox="0 0 50 50">
+              <circle class="smr-bg" cx="25" cy="25" r="20" />
+              <circle class="smr-fg smr-red" id="donutFail" cx="25" cy="25" r="20" stroke-dasharray="0 125.66" />
+            </svg>
+          </div>
+        </div>
+        <div class="stat-box accuracy-box">
+          <div class="stat-icon"><i class="fas fa-bullseye"></i></div>
+          <div class="stat-num" id="cardAccuracy">0%</div>
+          <div class="stat-name">ACCURACY</div>
+          <div class="stat-ring-mini">
+            <svg viewBox="0 0 50 50">
+              <circle class="smr-bg" cx="25" cy="25" r="20" />
+              <circle class="smr-fg smr-purple" id="donutAcc" cx="25" cy="25" r="20" stroke-dasharray="0 125.66" />
+            </svg>
+          </div>
+        </div>
+        <div class="stat-box bets-box">
+          <div class="stat-icon"><i class="fas fa-dice"></i></div>
+          <div class="stat-num" id="cardBets">0</div>
+          <div class="stat-name">BETS</div>
+          <div class="stat-ring-mini">
+            <svg viewBox="0 0 50 50">
+              <circle class="smr-bg" cx="25" cy="25" r="20" />
+              <circle class="smr-fg smr-cyan" id="donutBets" cx="25" cy="25" r="20" stroke-dasharray="0 125.66" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Martingale Level -->
+      <div class="martingale-card glass-card animate-in" id="martingaleCard">
+        <div class="mg-left">
+          <div class="mg-label">MARTINGALE LEVEL</div>
+          <div class="mg-level-row">
+            <span class="mg-level" id="mgLevel">L1</span>
+            <div class="mg-dots" id="mgDots">
+              <span class="mg-dot"></span><span class="mg-dot"></span><span class="mg-dot"></span>
+              <span class="mg-dot"></span><span class="mg-dot"></span>
+            </div>
+          </div>
+        </div>
+        <div class="mg-right">
+          <div class="mg-bet-label">NEXT BET</div>
+          <div class="mg-bet" id="mgBet">₹10</div>
+        </div>
+      </div>
+
+      <!-- Recent Results -->
+      <div class="recent-section animate-in">
+        <div class="section-header">
+          <i class="fas fa-chart-line"></i>
+          <span>LAST 10 RESULTS</span>
+          <div class="section-line"></div>
+        </div>
+        <div class="recent-balls" id="recentBalls"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== SERVER TAB ===== -->
+  <div class="tab-page" id="pageServer">
+    <div class="page-container">
+      <div class="page-hero-title">
+        <i class="fas fa-server"></i>
+        <span>SERVER ANALYSIS</span>
+      </div>
+
+      <!-- Live Pattern Alert -->
+      <div class="alert-panel animate-in" id="alertPanel">
+        <div class="alert-dot"></div>
+        <div class="alert-text" id="alertText">Analyzing patterns...</div>
+      </div>
+
+      <div class="server-card glass-card animate-in">
+        <div class="server-card-header niranjan-header">
+          <i class="fas fa-brain"></i>
+          <span>NIRANJAN STABILITY LOGIC</span>
+          <div class="header-badge">ENGINE 1</div>
+        </div>
+        <div id="niranjanLogicItems"></div>
+      </div>
+
+      <div class="server-card glass-card animate-in">
+        <div class="server-card-header v52-header">
+          <i class="fas fa-rocket"></i>
+          <span>V.52 SENTINEL LOGIC</span>
+          <div class="header-badge">ENGINE 2</div>
+        </div>
+        <div id="v52LogicItems"></div>
+      </div>
+
+      <div class="server-card glass-card animate-in">
+        <div class="server-card-header hybrid-header">
+          <i class="fas fa-atom"></i>
+          <span>HYBRID PATTERNS</span>
+          <div class="header-badge">FUSION</div>
+        </div>
+        <div id="patternCards"></div>
+      </div>
+
+      <div class="server-card glass-card animate-in">
+        <div class="server-card-header dragon-header">
+          <i class="fas fa-dragon"></i>
+          <span>DRAGON / REVERSAL</span>
+          <div class="header-badge">DETECT</div>
+        </div>
+        <div id="dragonCards"></div>
+      </div>
+
+      <!-- Big/Small Distribution Chart -->
+      <div class="server-card glass-card animate-in">
+        <div class="server-card-header dist-header">
+          <i class="fas fa-chart-bar"></i>
+          <span>DISTRIBUTION (L10)</span>
+          <div class="header-badge">STATS</div>
+        </div>
+        <div class="dist-chart" id="distChart"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== HISTORY TAB ===== -->
+  <div class="tab-page" id="pageHistory">
+    <div class="page-container">
+      <div class="page-hero-title">
+        <i class="fas fa-clock-rotate-left"></i>
+        <span>PREDICTION HISTORY</span>
+      </div>
+
+      <!-- Summary row -->
+      <div class="history-summary animate-in" id="historySummary"></div>
+
+      <div id="historyList"></div>
+
+      <button class="clear-btn animate-in" id="clearHistoryBtn">
+        <i class="fas fa-trash-alt"></i> CLEAR ALL HISTORY
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== TELEGRAM TAB ===== -->
+  <div class="tab-page" id="pageTelegram">
+    <div class="page-container">
+      <div class="page-hero-title">
+        <i class="fab fa-telegram"></i>
+        <span>TELEGRAM BOT</span>
+      </div>
+
+      <div class="tg-status-card glass-card animate-in" id="tgStatusCard">
+        <div class="tg-status-dot inactive" id="tgDot"></div>
+        <div class="tg-status-info">
+          <div class="tg-status-title" id="tgStatusTitle">Bot Inactive</div>
+          <div class="tg-status-sub" id="tgStatusSub">Configure below to start sending predictions</div>
+        </div>
+      </div>
+
+      <div class="server-card glass-card animate-in">
+        <div class="server-card-header tg-header">
+          <i class="fas fa-robot"></i>
+          <span>BOT CONFIGURATION</span>
+          <div class="header-badge">CONFIG</div>
+        </div>
+        <div class="tg-form">
+          <div class="input-group">
+            <label class="input-label"><i class="fas fa-key"></i> Bot Token</label>
+            <input type="text" class="tg-input" id="botToken" placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11">
+          </div>
+          <div class="input-group">
+            <label class="input-label"><i class="fas fa-at"></i> Channel / Chat ID</label>
+            <input type="text" class="tg-input" id="channelId" placeholder="@yourchannel or -100123456789">
+          </div>
+          <div class="tg-btn-row">
+            <button class="tg-btn start-btn" id="startSession">
+              <i class="fas fa-rocket"></i> START SESSION
+            </button>
+            <button class="tg-btn stop-btn" id="stopSession" disabled>
+              <i class="fas fa-stop-circle"></i> STOP
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="server-card glass-card animate-in">
+        <div class="server-card-header tg-header">
+          <i class="fas fa-sliders"></i>
+          <span>SESSION SETTINGS</span>
+          <div class="header-badge">OPTIONS</div>
+        </div>
+        <div class="tg-settings">
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-name">Send Stickers on Win</div>
+              <div class="setting-desc">Animated celebrations on correct predictions</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="toggleWinSticker" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-name">Send Stickers on Loss</div>
+              <div class="setting-desc">Consolation stickers on wrong predictions</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="toggleLossSticker" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div class="setting-info">
+              <div class="setting-name">Base Bet Amount (₹)</div>
+              <div class="setting-desc">Starting amount for martingale</div>
+            </div>
+            <input type="number" class="mini-input" id="baseBetInput" value="10" min="1">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav" id="bottomNav">
+    <div class="nav-item active" data-page="pageHome" aria-label="Home">
+      <div class="nav-icon-wrap">
+        <i class="fas fa-home"></i>
+        <div class="nav-active-dot"></div>
+      </div>
+      <div class="nav-label">Home</div>
+    </div>
+    <div class="nav-item" data-page="pageServer" aria-label="Server">
+      <div class="nav-icon-wrap">
+        <i class="fas fa-server"></i>
+        <div class="nav-active-dot"></div>
+      </div>
+      <div class="nav-label">Server</div>
+    </div>
+    <div class="nav-item" data-page="pageHistory" aria-label="History">
+      <div class="nav-icon-wrap">
+        <i class="fas fa-clock-rotate-left"></i>
+        <div class="nav-active-dot"></div>
+      </div>
+      <div class="nav-label">History</div>
+    </div>
+    <div class="nav-item" data-page="pageTelegram" aria-label="Telegram">
+      <div class="nav-icon-wrap">
+        <i class="fab fa-telegram"></i>
+        <div class="nav-active-dot"></div>
+      </div>
+      <div class="nav-label">Telegram</div>
+    </div>
+  </nav>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
